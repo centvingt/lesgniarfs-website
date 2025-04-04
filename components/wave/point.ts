@@ -1,34 +1,32 @@
+import { AnimationTimestamp } from './animation-timestamp'
+
 export class Point {
-  index: number
   maxY: number
   origY: number
   speed: number
   x: number
   y: number
+  animationTimestamp: AnimationTimestamp
 
   constructor({
-    index,
-    // maxY,
-    speed,
     x,
     y,
+    animationTimestamp,
   }: {
-    index: number
-    // maxY: number
-    speed: number
     x: number
     y: number
+    animationTimestamp: AnimationTimestamp
   }) {
-    this.index = index
     this.maxY = Math.random() * 50 + 100
     this.origY = y
-    this.speed = speed
+    this.speed = 30
     this.x = x
     this.y = y
+    this.animationTimestamp = animationTimestamp
   }
 
   update = () => {
-    this.index += this.speed
-    this.y = this.origY + Math.sin(this.index) * this.maxY
+    // this.index += (this.timestamp.delta * this.speed) / 1000
+    // this.y = this.origY + Math.sin(this.index) * this.maxY
   }
 }
