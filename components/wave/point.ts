@@ -1,28 +1,42 @@
 import { AnimationTimestamp } from './animation-timestamp'
 
 export class Point {
-  maxY: number
   origY: number
   speed: number
   x: number
   y: number
+  maxY: number
   animationTimestamp: AnimationTimestamp
 
   constructor({
-    x,
-    y,
-    animationTimestamp,
+    config,
+    point,
   }: {
-    x: number
-    y: number
-    animationTimestamp: AnimationTimestamp
+    config?: {
+      x: number
+      y: number
+      gap: number
+      animationTimestamp: AnimationTimestamp
+    }
+    point?: Point
   }) {
-    this.maxY = Math.random() * 50 + 100
-    this.origY = y
-    this.speed = 30
-    this.x = x
-    this.y = y
-    this.animationTimestamp = animationTimestamp
+    if (config) {
+      const { x, y, gap, animationTimestamp } = config
+      this.origY = y
+      this.speed = 30
+      this.x = x
+      this.y = y
+      this.maxY = y + gap
+      this.animationTimestamp = animationTimestamp
+    } else if (point) {
+      const { origY, speed, x, y, maxY, animationTimestamp } = point
+      this.origY = origY
+      this.speed = speed
+      this.x = x
+      this.y = y
+      this.maxY = maxY
+      this.animationTimestamp = animationTimestamp
+    } else throw new Error('Missing property in Point constructor')
   }
 
   update = () => {
