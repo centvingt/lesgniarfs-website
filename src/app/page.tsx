@@ -44,14 +44,14 @@ const useCanvas = (
 
 const animationTimestamp = new AnimationTimestamp()
 const points = [
-  new Point({ config: { x: 0, y: 30, gap: 5, animationTimestamp } }),
-  new Point({ config: { x: 120, y: 60, gap: 4, animationTimestamp } }),
+  new Point({ config: { x: 0, y: 30, gap: 25, animationTimestamp } }),
+  new Point({ config: { x: 120, y: 60, gap: 20, animationTimestamp } }),
   new Point({ config: { x: 250, y: 15, gap: 10, animationTimestamp } }),
-  new Point({ config: { x: 375, y: 50, gap: 5, animationTimestamp } }),
-  new Point({ config: { x: 530, y: 10, gap: 8, animationTimestamp } }),
-  new Point({ config: { x: 680, y: 50, gap: 8, animationTimestamp } }),
-  new Point({ config: { x: 850, y: 20, gap: 8, animationTimestamp } }),
-  new Point({ config: { x: 920, y: 30, gap: 8, animationTimestamp } }),
+  new Point({ config: { x: 375, y: 50, gap: 30, animationTimestamp } }),
+  new Point({ config: { x: 530, y: 10, gap: 40, animationTimestamp } }),
+  new Point({ config: { x: 680, y: 50, gap: 60, animationTimestamp } }),
+  new Point({ config: { x: 850, y: 20, gap: 80, animationTimestamp } }),
+  new Point({ config: { x: 920, y: 30, gap: 50, animationTimestamp } }),
 ]
 const wave = new Wave({ color: '#ffffff', height: 300, points })
 const draw = (ctx: CanvasRenderingContext2D) => {
