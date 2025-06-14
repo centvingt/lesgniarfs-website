@@ -67,25 +67,19 @@ export class Wave {
     this.draw(ctx)
   }
 
-  draw = (ctx: CanvasRenderingContext2D) => {
-    if (this.drawingPoints.length === 0) this.resize(ctx)
-
+  private drawWaveShape(ctx: CanvasRenderingContext2D) {
     ctx.beginPath()
-    ctx.fillStyle = this.color
+    if (this.drawingPoints.length === 0) return
 
     let previousX = this.drawingPoints[0].x
     let previousY = this.drawingPoints[0].y
-
     ctx.moveTo(previousX, previousY)
 
     for (const point of this.drawingPoints) {
       point.update()
-
       const endingX = (previousX + point.x) / 2
       const endingY = (previousY + point.y) / 2
-
       ctx.quadraticCurveTo(previousX, previousY, endingX, endingY)
-
       previousX = point.x
       previousY = point.y
     }
@@ -93,7 +87,22 @@ export class Wave {
     ctx.lineTo(previousX, previousY)
     ctx.lineTo(this.drawingPoints[this.drawingPoints.length - 1].x, this.height)
     ctx.lineTo(this.drawingPoints[0].x, this.height)
-    ctx.fill()
     ctx.closePath()
+  }
+
+  draw = (ctx: CanvasRenderingContext2D) => {
+    if (this.drawingPoints.length === 0) this.resize(ctx)
+
+    // Shadow
+    ctx.fillStyle = 'rgba(64, 64, 64, 0.25)' // Approximation of lg-tar[500] with transparency
+    ctx.filter = 'blur(16px)'
+    this.drawWaveShape(ctx)
+    ctx.fill()
+    ctx.filter = 'none'
+
+    // Actual wave
+    ctx.fillStyle = this.color
+    this.drawWaveShape(ctx)
+    ctx.fill()
   }
 }
