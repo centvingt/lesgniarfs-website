@@ -7,7 +7,7 @@ export class Point {
   y!: number
   maxY!: number
   animationTimestamp!: AnimationTimestamp
-  nextY!: number
+  phase!: number
 
   constructor({
     config,
@@ -29,39 +29,17 @@ export class Point {
       this.y = y
 
       this.maxY = y + gap
-      this.nextY = this.maxY
       this.animationTimestamp = animationTimestamp
+      this.phase = Math.random() * Math.PI * 2
     } else if (point) {
       Object.assign(this, point)
     } else throw new Error('Missing property in Point constructor')
   }
 
-  get deltaY() {
-    // return this.nextY - this.y
-    return this.nextY - this.y
-  }
-
-  // this.y = this.fixedY + Math.sin(this.cur) * this.max
-
   update = () => {
-    const translateY = (this.animationTimestamp.delta * this.deltaY) / 1000
-    console.log('components/wave/point.ts > translateY >', translateY)
-
-    if (translateY > 0) {
-      if (this.y >= this.maxY) {
-        console.log('components/wave/point.ts > this.y >= this.maxY > TRUE')
-        this.nextY = this.origY
-      }
-    } else {
-      if (this.y <= this.origY) {
-        console.log('components/wave/point.ts > this.y <= this.origY > TRUE')
-        this.nextY = this.maxY
-      }
-    }
-    this.y += translateY
-  }
-  private getNewNextY = () => {
-    const nextY = Math.floor(Math.random() * (this.maxY - this.origY))
-    return nextY
+    this.phase += this.animationTimestamp.delta * 0.0001
+    const amplitude = (this.maxY - this.origY) / 2
+    const centerY = this.origY + amplitude
+    this.y = centerY + Math.sin(this.phase) * amplitude
   }
 }
