@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Unbounded, Roboto } from 'next/font/google'
+import { Unbounded, Roboto, Roboto_Flex, Barriecito } from 'next/font/google'
 import './globals.css'
 
 const unbounded = Unbounded({
@@ -14,6 +14,18 @@ const roboto = Roboto({
   display: 'swap',
   weight: ['400', '700'],
 })
+const barriecito = Barriecito({
+  variable: '--font-barriecito',
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['400'],
+})
+const robotoFlex = Roboto_Flex({
+  variable: '--font-roboto-flex',
+  subsets: ['latin'],
+  display: 'swap',
+  axes: ['wdth'],
+})
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -27,7 +39,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${unbounded.variable} ${roboto.variable} antialiased`}>
+      <body
+        className={`${unbounded.variable} ${roboto.variable} ${robotoFlex.variable} ${barriecito.variable} antialiased`}
+      >
         {children}
       </body>
     </html>

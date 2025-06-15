@@ -1,10 +1,12 @@
 'use client'
 
+import Image from 'next/image'
 import { FC, useEffect, useRef } from 'react'
 import { AnimationTimestamp } from '../../wave/animation-timestamp'
 import { Point } from '../../wave/point'
 import { Wave } from '../../wave/wave'
 import { lgColorsConfig } from '../../../lg-colors-config'
+import gniarfHeader from '@/assets/svg/gniarf-header.svg'
 
 const useCanvas = (
   draw: (ctx: CanvasRenderingContext2D) => void,
@@ -15,7 +17,7 @@ const useCanvas = (
   useEffect(() => {
     if (!canvasRef.current || !window) return
     const canvas = canvasRef.current
-    canvas.height = 700
+    canvas.height = 650
     const ctx = canvas.getContext('2d')
     if (!ctx) throw new Error('ANY 2D CONTEXT FOUND IN CANVAS')
     const resizeCanvasWidth = () => {
@@ -117,7 +119,7 @@ const Header: FC = () => {
       numPoints: 10,
       waveColor: lgColorsConfig.colors['lg-dark-purple'][500],
       waveHeight,
-      bandHeight: bandHeight * 1.5,
+      bandHeight: bandHeight * 1.6,
       animationTimestamp,
       minGap: 30,
       maxGap: 60,
@@ -138,8 +140,26 @@ const Header: FC = () => {
   )
 
   return (
-    <header>
-      <canvas ref={canvasRef} className="h-[700px] w-full"></canvas>
+    <header className="grid items-end justify-items-center">
+      <canvas
+        ref={canvasRef}
+        className="h-[650px] w-full [grid-area:1/1/2/2]"
+      ></canvas>
+      <div className="inline-grid [grid-area:1/1/2/2]">
+        <h1 className="before:bg-lg-night-blue font-h1 relative w-[380px] text-center leading-[80px] tracking-tighter uppercase before:absolute before:-inset-[4px] before:top-0 before:mx-auto before:block before:h-[220px] before:w-[136px]">
+          <span className="text-lg-light-blue relative block text-[80px] font-[900]">
+            Les
+          </span>
+          <strong className="text-lg-acid-yellow relative text-[100px] font-[900]">
+            Gniarfs
+          </strong>
+        </h1>
+        <Image
+          src={gniarfHeader}
+          alt="Un Gniarf vénère"
+          className="relative mx-auto mt-[-80px] w-[292px]"
+        />
+      </div>
     </header>
   )
 }

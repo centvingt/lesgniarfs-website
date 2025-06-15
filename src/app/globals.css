@@ -12,12 +12,14 @@
   --font-sans: var(--font-roboto);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-unbounded);
+  --font-h1: var(--font-barriecito);
   --font-body: var(--font-roboto);
   --color-lg-acid-yellow: #d0df48;
   --color-lg-medium-purple: #462e81;
   --color-lg-medium-purple: #462e81;
   --color-lg-dark-purple: #1b0e3a;
   --color-lg-light-blue: #82c3de;
+  --color-lg-night-blue: #0737b2;
 }
 
 @layer base {
@@ -25,13 +27,12 @@
     /* @apply bg-background text-foreground font-body; */
     @apply font-body md:text-[18px];
   }
-  h1,
+
   h2,
   h3,
   h4,
   h5,
   h6,
-  .h1,
   .h2,
   .h3,
   .h4,
