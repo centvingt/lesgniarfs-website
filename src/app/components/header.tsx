@@ -17,7 +17,7 @@ const useCanvas = (
   useEffect(() => {
     if (!canvasRef.current || !window) return
     const canvas = canvasRef.current
-    canvas.height = 650
+    canvas.height = 700
     const ctx = canvas.getContext('2d')
     if (!ctx) throw new Error('ANY 2D CONTEXT FOUND IN CANVAS')
     const resizeCanvasWidth = () => {
@@ -119,7 +119,7 @@ const Header: FC = () => {
       numPoints: 10,
       waveColor: lgColorsConfig.colors['lg-dark-purple'][500],
       waveHeight,
-      bandHeight: bandHeight * 1.6,
+      bandHeight: bandHeight * 1.3,
       animationTimestamp,
       minGap: 30,
       maxGap: 60,
@@ -143,9 +143,9 @@ const Header: FC = () => {
     <header className="grid items-end justify-items-center">
       <canvas
         ref={canvasRef}
-        className="h-[650px] w-full [grid-area:1/1/2/2]"
+        className="h-[700px] w-full [grid-area:1/1/2/2]"
       ></canvas>
-      <div className="inline-grid [grid-area:1/1/2/2]">
+      <div className="mb-[16px] inline-grid [grid-area:1/1/2/2]">
         <h1 className="before:bg-lg-night-blue font-h1 relative w-[380px] text-center leading-[80px] tracking-tighter uppercase before:absolute before:-inset-[4px] before:top-0 before:mx-auto before:block before:h-[220px] before:w-[136px]">
           <span className="text-lg-light-blue relative block text-[80px] font-[900]">
             Les

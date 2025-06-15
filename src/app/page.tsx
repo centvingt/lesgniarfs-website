@@ -49,7 +49,7 @@ export default function Home() {
             </p>
             <span className="bg-lg-dark-purple inline-block rounded-[10px] p-[0_0_16px] hover:mt-[-2px] hover:p-[0_0_18px]">
               <Link
-                href="https://buy.stripe.com/test_4gw6ow4oVgtcdLW7ss"
+                href="https://buy.stripe.com/14AdR9deX83VbPJe4B5EY00"
                 target="_blank"
                 rel="nofollow"
                 className="bg-lg-acid-yellow font-heading text-lg-medium-purple active:bg-lg-light-blue relative rounded-[10px] p-[8px_16px] text-[24px] active:top-[4px]"
