@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Unbounded, Roboto, Roboto_Flex, Barriecito } from 'next/font/google'
 import './globals.css'
+import Analytics from './components/analytics'
 
 const unbounded = Unbounded({
   variable: '--font-unbounded',
@@ -42,6 +43,7 @@ export default function RootLayout({
       <body
         className={`${unbounded.variable} ${roboto.variable} ${robotoFlex.variable} ${barriecito.variable} antialiased`}
       >
+        <Analytics GA_MEASUREMENT_ID="G-TZ8ZTVR2VW" />
         {children}
       </body>
     </html>
