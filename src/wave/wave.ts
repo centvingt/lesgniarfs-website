@@ -94,7 +94,7 @@ export class Wave {
     if (this.drawingPoints.length === 0) this.resize(ctx)
 
     // Shadow
-    ctx.fillStyle = 'rgba(64, 64, 64, 0.25)' // Approximation of lg-tar[500] with transparency
+    ctx.fillStyle = 'rgba(64, 64, 64, 0.25)'
     ctx.filter = 'blur(16px)'
     this.drawWaveShape(ctx)
     ctx.fill()

@@ -1,3 +1,5 @@
+const WAVE_SPEED_MULTIPLIER = 0.000003
+
 import { AnimationTimestamp } from './animation-timestamp'
 
 export class Point {
@@ -24,7 +26,8 @@ export class Point {
     if (config) {
       const { x, y, gap, animationTimestamp } = config
       this.origY = y
-      this.speed = 30
+      // Vary speed slightly for each point for natural animation variation
+      this.speed = 20 + Math.random() * 20
       this.x = x
       this.y = y
 
@@ -37,7 +40,8 @@ export class Point {
   }
 
   update = () => {
-    this.phase += this.animationTimestamp.delta * 0.0001
+    this.phase +=
+      this.animationTimestamp.delta * this.speed * WAVE_SPEED_MULTIPLIER
     const amplitude = (this.maxY - this.origY) / 2
     const centerY = this.origY + amplitude
     this.y = centerY + Math.sin(this.phase) * amplitude

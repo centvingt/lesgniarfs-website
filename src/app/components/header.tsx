@@ -1,15 +1,15 @@
 'use client'
 
 import { FC, useEffect, useRef } from 'react'
-import { AnimationTimestamp } from '../../../components/wave/animation-timestamp'
-import { Point } from '../../../components/wave/point'
-import { Wave } from '../../../components/wave/wave'
+import { AnimationTimestamp } from '../../wave/animation-timestamp'
+import { Point } from '../../wave/point'
+import { Wave } from '../../wave/wave'
 import { lgColorsConfig } from '../../../lg-colors-config'
 
 const useCanvas = (
   draw: (ctx: CanvasRenderingContext2D) => void,
   resizeWIdth: (ctx: CanvasRenderingContext2D) => void,
-  animationTimestamp: AnimationTimestamp
+  animationTimestamp: AnimationTimestamp,
 ) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   useEffect(() => {
@@ -42,367 +42,85 @@ const useCanvas = (
 
 const waveHeight = 700
 const bandHeight = 175 // 700px ÷ 4 bandes (environ)
-const bandHeights = [
-  bandHeight * 3.5,
-  bandHeight * 3,
-  bandHeight * 2.5,
-  bandHeight * 2,
-  bandHeight * 1.5,
-]
+
+// Helper to create a wave with evenly spaced points
+const createWave = ({
+  numPoints,
+  waveColor,
+  waveHeight,
+  bandHeight,
+  animationTimestamp,
+  minGap,
+  maxGap,
+}: {
+  numPoints: number
+  waveColor: string
+  waveHeight: number
+  bandHeight: number
+  animationTimestamp: AnimationTimestamp
+  minGap: number
+  maxGap: number
+}): Wave => {
+  const spacing = 800 / (numPoints - 1)
+  const points = Array.from({ length: numPoints }, (_, i) => {
+    const x = i * spacing
+    const y = waveHeight - bandHeight + (Math.random() * 40 - 20)
+    const gap = minGap + Math.random() * (maxGap - minGap)
+    return new Point({
+      config: { x, y, gap, animationTimestamp },
+    })
+  })
+  return new Wave({ color: waveColor, height: waveHeight, points })
+}
 
 const Header: FC = () => {
   const animationTimestamp = new AnimationTimestamp()
 
   const waves = [
-    new Wave({
-      color: lgColorsConfig.colors['lg-pink'][800],
-      height: waveHeight,
-      points: [
-        new Point({
-          config: {
-            x: 0,
-            y: waveHeight - bandHeights[0],
-            gap: 40,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 100,
-            y: waveHeight - bandHeights[0] + 20,
-            gap: 30,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 200,
-            y: waveHeight - bandHeights[0] - 20,
-            gap: 50,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 300,
-            y: waveHeight - bandHeights[0] + 10,
-            gap: 40,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 400,
-            y: waveHeight - bandHeights[0],
-            gap: 60,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 500,
-            y: waveHeight - bandHeights[0] + 20,
-            gap: 40,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 600,
-            y: waveHeight - bandHeights[0] - 10,
-            gap: 30,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 700,
-            y: waveHeight - bandHeights[0] + 20,
-            gap: 40,
-            animationTimestamp,
-          },
-        }),
-      ],
+    createWave({
+      numPoints: 8,
+      waveColor: lgColorsConfig.colors['lg-pink'][800],
+      waveHeight,
+      bandHeight: bandHeight * 3.5,
+      animationTimestamp,
+      minGap: 40,
+      maxGap: 90,
     }),
-    new Wave({
-      color: lgColorsConfig.colors['lg-pink'][700],
-      height: waveHeight,
-      points: [
-        new Point({
-          config: {
-            x: 0,
-            y: waveHeight - bandHeights[1],
-            gap: 40,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 100,
-            y: waveHeight - bandHeights[1] + 20,
-            gap: 30,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 200,
-            y: waveHeight - bandHeights[1] - 20,
-            gap: 50,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 300,
-            y: waveHeight - bandHeights[1] + 10,
-            gap: 40,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 400,
-            y: waveHeight - bandHeights[1],
-            gap: 60,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 500,
-            y: waveHeight - bandHeights[1] + 20,
-            gap: 40,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 600,
-            y: waveHeight - bandHeights[1] - 10,
-            gap: 30,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 700,
-            y: waveHeight - bandHeights[1] + 20,
-            gap: 40,
-            animationTimestamp,
-          },
-        }),
-      ],
+    createWave({
+      numPoints: 7,
+      waveColor: lgColorsConfig.colors['lg-pink'][700],
+      waveHeight,
+      bandHeight: bandHeight * 3,
+      animationTimestamp,
+      minGap: 20,
+      maxGap: 55,
     }),
-    new Wave({
-      color: lgColorsConfig.colors['lg-pink'][600],
-      height: waveHeight,
-      points: [
-        new Point({
-          config: {
-            x: 0,
-            y: waveHeight - bandHeights[2],
-            gap: 40,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 100,
-            y: waveHeight - bandHeights[2] + 20,
-            gap: 30,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 200,
-            y: waveHeight - bandHeights[2] - 20,
-            gap: 50,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 300,
-            y: waveHeight - bandHeights[2] + 10,
-            gap: 40,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 400,
-            y: waveHeight - bandHeights[2],
-            gap: 60,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 500,
-            y: waveHeight - bandHeights[2] + 20,
-            gap: 40,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 600,
-            y: waveHeight - bandHeights[2] - 10,
-            gap: 30,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 700,
-            y: waveHeight - bandHeights[2] + 20,
-            gap: 40,
-            animationTimestamp,
-          },
-        }),
-      ],
+    createWave({
+      numPoints: 8,
+      waveColor: lgColorsConfig.colors['lg-pink'][600],
+      waveHeight,
+      bandHeight: bandHeight * 2.6,
+      animationTimestamp,
+      minGap: 20,
+      maxGap: 60,
     }),
-    new Wave({
-      color: lgColorsConfig.colors['lg-pink'][500],
-      height: waveHeight,
-      points: [
-        new Point({
-          config: {
-            x: 0,
-            y: waveHeight - bandHeights[3],
-            gap: 40,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 100,
-            y: waveHeight - bandHeights[3] + 20,
-            gap: 30,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 200,
-            y: waveHeight - bandHeights[3] - 20,
-            gap: 50,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 300,
-            y: waveHeight - bandHeights[3] + 10,
-            gap: 40,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 400,
-            y: waveHeight - bandHeights[3],
-            gap: 60,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 500,
-            y: waveHeight - bandHeights[3] + 20,
-            gap: 40,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 600,
-            y: waveHeight - bandHeights[3] - 10,
-            gap: 30,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 700,
-            y: waveHeight - bandHeights[3] + 20,
-            gap: 40,
-            animationTimestamp,
-          },
-        }),
-      ],
+    createWave({
+      numPoints: 10,
+      waveColor: lgColorsConfig.colors['lg-pink'][500],
+      waveHeight,
+      bandHeight: bandHeight * 2.1,
+      animationTimestamp,
+      minGap: 30,
+      maxGap: 50,
     }),
-    new Wave({
-      color: lgColorsConfig.colors['lg-tar'][500], // couche supérieure sombre
-      height: waveHeight,
-      points: [
-        new Point({
-          config: {
-            x: 0,
-            y: waveHeight - bandHeights[4],
-            gap: 40,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 100,
-            y: waveHeight - bandHeights[4] + 20,
-            gap: 30,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 200,
-            y: waveHeight - bandHeights[4] - 20,
-            gap: 50,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 300,
-            y: waveHeight - bandHeights[4] + 10,
-            gap: 40,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 400,
-            y: waveHeight - bandHeights[4],
-            gap: 60,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 500,
-            y: waveHeight - bandHeights[4] + 20,
-            gap: 40,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 600,
-            y: waveHeight - bandHeights[4] - 10,
-            gap: 30,
-            animationTimestamp,
-          },
-        }),
-        new Point({
-          config: {
-            x: 700,
-            y: waveHeight - bandHeights[4] + 20,
-            gap: 40,
-            animationTimestamp,
-          },
-        }),
-      ],
+    createWave({
+      numPoints: 10,
+      waveColor: lgColorsConfig.colors['lg-dark-purple'][500],
+      waveHeight,
+      bandHeight: bandHeight * 1.5,
+      animationTimestamp,
+      minGap: 30,
+      maxGap: 60,
     }),
   ]
 
@@ -416,12 +134,12 @@ const Header: FC = () => {
     (ctx) => {
       waves.forEach((wave) => wave.resize(ctx))
     },
-    animationTimestamp
+    animationTimestamp,
   )
 
   return (
     <header>
-      <canvas ref={canvasRef} className="w-full h-[700px]"></canvas>
+      <canvas ref={canvasRef} className="h-[700px] w-full"></canvas>
     </header>
   )
 }
