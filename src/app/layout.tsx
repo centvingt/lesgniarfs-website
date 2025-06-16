@@ -13,7 +13,7 @@ const roboto = Roboto({
   variable: '--font-roboto',
   subsets: ['latin'],
   display: 'swap',
-  weight: ['400', '700'],
+  weight: ['400', '600'],
 })
 const barriecito = Barriecito({
   variable: '--font-barriecito',

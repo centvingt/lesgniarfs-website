@@ -41,11 +41,13 @@
     @apply font-heading;
   }
   h2 {
-    @apply text-[28px] lg:text-[52px];
+    @apply text-[28px]/[28px] lg:text-[52px]/[52px];
   }
   h3,
   .h3 {
     @apply text-[18px] lg:text-[24px];
+  }
+  :select {
   }
 }
 

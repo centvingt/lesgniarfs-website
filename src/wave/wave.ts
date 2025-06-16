@@ -51,8 +51,14 @@ export class Wave {
     while (drawingPointsHub.width < canvasWidth) {
       const [, ...rest] = this.points
       for (const point of rest) {
-        const newPoint = new Point({ point })
-        newPoint.x += drawingPointsHub.width
+        const newPoint = new Point({
+          config: {
+            x: point.x + drawingPointsHub.width,
+            y: point.origY,
+            gap: point.maxY - point.origY,
+            animationTimestamp: point.animationTimestamp,
+          },
+        })
         drawingPointsHub.remainingPoints = [
           ...drawingPointsHub.remainingPoints,
           newPoint,
