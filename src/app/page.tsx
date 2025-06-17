@@ -3,6 +3,7 @@
 // import 'reflect-metadata'
 
 import Header from './components/header'
+import type { Metadata } from 'next'
 
 import Link from 'next/link'
 import Image from 'next/image'
@@ -21,6 +22,12 @@ const Checkmark = () => (
 const Arrow = () => (
   <Image src={arrow} alt="Checkmark" className="w-full pt-[4px]" />
 )
+
+export const metadata: Metadata = {
+  title: 'Les Gniarfs – La BD que vous devez lire à tout prix !',
+  description:
+    'Tout ce que vous vouliez savoir sur les Gniarfs sans oser le demander : où les lire ? quand les lire ? pourquoi les lire ?',
+}
 
 export default function Home() {
   return (
