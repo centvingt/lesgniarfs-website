@@ -1,0 +1,11 @@
+[[redirects]]
+  from = "https://lesgniarfs.netlify.app/*"
+  to = "https://lesgniarfs.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://lesgniarfs.120.design/*"
+  to = "https://lesgniarfs.com/:splat"
+  status = 301
+  force = true
